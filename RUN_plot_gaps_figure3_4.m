@@ -3,11 +3,6 @@ Na = 200;
 % Change the parameters to suit the purposes
 epsr = 0.1;
 epsk = 0;
-plot_bandgap(Na,epsr,epsk)
-
-% Input: a vector containing values of alpha 
-% Output: (exact solution) plot band functions (real part of w) against alpha
-function plot_bandgap(Na,epsr,epsk)
 
 half=floor(Na/2);
 Omega = 0.35; 
@@ -58,12 +53,12 @@ colorarry = {'b','r','k'};
 colorarry2 = {'b','k','r'};
 
 % Uncomment to plot k gap when eps_rho=0 and eps_k>0
-% figure
-% hold on
-% for j=N+1:2*N
-%     plot(alp,w1(:,j),colorarry{j-N})
+figure
+hold on
+for j=N+1:2*N
+    plot(alp,w1(:,j),colorarry{j-N})
 %     scatter(alp,w2(:,j),20,colorarry{j-N},'filled')
-% end
+end
 % line([-1.31031,-1.31031],[-max(max(w2))*1.2,Omega/2],'Color','g');
 % line([-1.02615,-1.02615],[-max(max(w2))*1.2,Omega/2],'Color','g');
 % line([1.11435,1.11435],[-max(max(w2))*1.2,Omega/2],'Color','g','Markersize',30);
@@ -79,7 +74,7 @@ for j=N+1:2*N
     plot(alp1,w1(1:64,j),colorarry{j-N})
     plot(alp2,w1(65:137,j),colorarry2{j-N})
     plot(alp3,w1(138:end,j),colorarry{j-N})
-    scatter(alp,w2(:,j),20,colorarry{j-N},'filled')
+%     scatter(alp,w2(:,j),20,colorarry{j-N},'filled')
 end
 for j=2*N
     a=min(w1(1:half,j));
@@ -96,8 +91,8 @@ for j=2*N-1
 end
 
 % Choose a legend and adjust the x,y lim
-lgd =legend('Re(\omega)','Im(\omega)','','','','','','','','','k-gap')
-% % lgd =legend('Re(\omega)','Im(\omega)','','','','','','','','','Band gap')
+% legend()
+lgd =legend('Re(\omega)','','','','','','','','','','','','Band gap')
 % % lgd =legend('Re(\omega)','Im(\omega)')
 lgd.FontSize = 10;
 legend('Location','southeast');
@@ -119,7 +114,6 @@ set(gca,'TickLabelInterpreter','latex')
 set(gca, 'FontSize', 14.5);
 %axis square
 pbaspect([1.2 1 1])
-end
 function w= w_alp(epsr, epsk,Omega,phii, N, delta,kappa_b,rho_b,vol,C)
     w3 = @(t) [Omega^2/4*(1+((epsk.^2-1)./(1+epsk.*cos(Omega*t+phii)).^2))];
     rhot = @(t) 1./(1+epsr.*cos(Omega*t+phii));

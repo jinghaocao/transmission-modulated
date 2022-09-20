@@ -1,7 +1,7 @@
 %% Numerically compute the Floquet exponents of a NxN system of Hill equations
 %  \Psi''(t) + M(t)\Psi(t) = 0. M defines the matrix-valued coefficient with period T. 
 
-function [out, cnd] = hill_exp(T,M,N)
+function [out, V] = hill_exp(T,M,N)
 W = zeros(2*N,2*N);
 Z = zeros(N,N);
 I = eye(N,N);
@@ -19,5 +19,6 @@ end
 out = (log(diag(D))/(1i*T));
 [out_real,ind] = sort(real(out),'descend');
 out = out(ind);
+V = V(:,ind);
 cnd = cond(U);
 end
